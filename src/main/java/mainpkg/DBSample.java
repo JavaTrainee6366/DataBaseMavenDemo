@@ -41,21 +41,18 @@ public class DBSample {
 		}
 	}
 		
-		void select(String uname, String pass) {
+		void select(int ans_id) {
 			try {
 				PreparedStatement pd = con.prepareStatement(
-		"select * from tb_test where email = '" + uname + "' " + "and password = '" + pass + "' ");
+		"select * from answer where ans_id = '" + ans_id + "' ");
 				ResultSet rs = pd.executeQuery();
 
 				while (rs.next()) {
 					int id = rs.getInt(1);
-					String nn = rs.getString("name");
-					String em = rs.getString(3);
-					String pas = rs.getString(4);
-					String cont = rs.getString(5);
-					String ad = rs.getString(6);
+					String ans = rs.getString(2);
+					
 
-					System.out.println("Values Are::" + nn);
+					System.out.println("Values Are::" + ans);
 
 				}
 
@@ -68,6 +65,26 @@ public class DBSample {
 				System.out.println("" + e);
 			}
 
+		}
+		
+		public void update(int id,String des) {
+			
+			try {
+				PreparedStatement pd = con.prepareStatement("update course set description='"+des+"' "
+																+"where id='"+id+"' ");
+				int i = pd.executeUpdate();
+				
+				if(i>0) {
+					System.out.println("Successful");
+				}else {
+					System.out.println("check with your query");
+				}
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e);
+			}
+			
 		}
 	
 
